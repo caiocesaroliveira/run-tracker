@@ -1,14 +1,12 @@
-﻿using Domain.Users;
+﻿using Domain.Abstractions;
+using Domain.Users;
 
 namespace Domain.Followers;
-public sealed class FollowerService
+public sealed class FollowerService(IFollowerRepository repository)
 {
-    private readonly IFollowerRepository followerRepository;
+    private readonly IFollowerRepository _followerRepository = repository;
 
-    public FollowerService(IFollowerRepository repository) =>
-        followerRepository = repository;
-
-    public async void StartFollowing(
+    public async Task<Result> StartFollowing(
         User user,
         User followed,
         DateTime createdOnUtc,
@@ -16,20 +14,22 @@ public sealed class FollowerService
     {
         if (user.Id == followed.Id)
         {
-            throw new Exception("Can't follow yourself");
+            return FollowerErrros.SameUser;
         }
 
         if (!followed.HasPublicProfile)
         {
-            throw new Exception("Can't follow non-public profile");
+            return FollowerErrros.NonPublicProfile;
         }
 
-        if (await followerRepository.IsAlreadyFollowingAsync(user.Id, followed.Id, cancellationToken))
+        if (await _followerRepository.IsAlreadyFollowingAsync(user.Id, followed.Id, cancellationToken))
         {
-            throw new Exception("Already following");
+            return FollowerErrros.AlreadyFollowing;
         }
 
         var follower = Follower.Create(user.Id, followed.Id, createdOnUtc);
-        followerRepository.Insert(follower);
+        _followerRepository.Insert(follower);
+
+        return Result.Success();
     }
 }
