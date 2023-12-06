@@ -7,6 +7,11 @@ public abstract class Entity
         Id = id;
     }
 
+    protected Entity()
+    {
+        Id = Guid.NewGuid();
+    }
+
     public Guid Id { get; init; }
     public List<IDomainEvent> DomainEvents => _domainEvents.ToList();
 

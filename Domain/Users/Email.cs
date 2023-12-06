@@ -2,9 +2,9 @@
 
 namespace Domain.Users;
 
-public sealed record Name
+public sealed record Email
 {
-    public Name(string? value)
+    public Email(string? value)
     {
         Ensure.NotNullOrEmpty(value);
 
