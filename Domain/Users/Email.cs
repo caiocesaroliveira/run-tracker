@@ -4,11 +4,15 @@ namespace Domain.Users;
 
 public sealed record Email
 {
-    public Email(string? value)
+    private Email(string? value)
     {
         Ensure.NotNullOrEmpty(value);
-
         Value = value;
     }
     public string Value { get; }
+
+    public static Email Create(string email)
+    {
+        return new Email(email);
+    }
 };

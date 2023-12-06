@@ -10,11 +10,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{20F7CD23-3814-447B-8B4F-FBFF26724DE3}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		cobertura-teste.md = cobertura-teste.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{D4406A16-7866-483A-A7A1-522205EE2915}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{D4406A16-7866-483A-A7A1-522205EE2915}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.UnitTests", "Domain.UnitTests\Domain.UnitTests.csproj", "{ECE279B9-7D3A-43EE-8037-F31DAC3105B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.UnitTests", "Domain.UnitTests\Domain.UnitTests.csproj", "{ECE279B9-7D3A-43EE-8037-F31DAC3105B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

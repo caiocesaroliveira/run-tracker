@@ -6,7 +6,7 @@ public sealed class FollowerService(IFollowerRepository repository)
 {
     private readonly IFollowerRepository _followerRepository = repository;
 
-    public async Task<Result> StartFollowing(
+    public async Task<Result> StartFollowingAsync(
         User user,
         User followed,
         DateTime createdOnUtc,

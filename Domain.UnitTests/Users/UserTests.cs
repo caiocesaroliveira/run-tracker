@@ -9,12 +9,11 @@ public class UserTests
     public void Create_Should_ReturnUser_WhenValueIsValid()
     {
         //Arrange
-        var email = new Email("fullname@teste.com.br");
-        var name = new Name("Full Name");
-        var hasPublicProfile = true;
+        var email = Email.Create("fullname@test.com.br");
+        var name = Name.Create("Full Name");
 
         //Act
-        var user = User.Create(name, email, hasPublicProfile);
+        var user = User.Create(name, email, hasPublicProfile: true);
 
         //Assert
         user.Should().NotBeNull();
@@ -24,12 +23,11 @@ public class UserTests
     public void Create_Should_RaiseDomain_WhenValueIsValid()
     {
         //Arrange
-        var email = new Email("fullname@teste.com.br");
-        var name = new Name("Full Name");
-        var hasPublicProfile = true;
+        var email = Email.Create("fullname@test.com.br");
+        var name = Name.Create("Full Name");
 
         //Act
-        var user = User.Create(name, email, hasPublicProfile);
+        var user = User.Create(name, email, hasPublicProfile: true);
 
         //Assert
         user.DomainEvents.Should().ContainSingle()
