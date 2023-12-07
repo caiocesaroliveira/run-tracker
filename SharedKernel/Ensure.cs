@@ -1,13 +1,13 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
-namespace Domain.Abstractions;
+namespace SharedKernel;
 
 public static class Ensure
 {
     public static void NotNullOrEmpty(
         [NotNull] string? value,
-        [CallerArgumentExpression("value")] string? paramName = null)
+        [CallerArgumentExpression(nameof(value))] string? paramName = null)
     {
         if (string.IsNullOrEmpty(value))
         {

@@ -1,15 +1,23 @@
-﻿using Domain.Abstractions;
-using Domain.Users;
+﻿using Domain.Users;
+using SharedKernel;
 
 namespace Domain.Followers;
-public sealed class FollowerService(IFollowerRepository repository)
+public sealed class FollowerService
 {
-    private readonly IFollowerRepository _followerRepository = repository;
+    private readonly IFollowerRepository _followerRepository;
+    private readonly IDateTimeProvider _dateTimeProvider;
+
+    public FollowerService(
+        IFollowerRepository followerRepository,
+        IDateTimeProvider dateTimeProvider)
+    {
+        _followerRepository = followerRepository;
+        _dateTimeProvider = dateTimeProvider;
+    }
 
     public async Task<Result> StartFollowingAsync(
         User user,
         User followed,
-        DateTime createdOnUtc,
         CancellationToken cancellationToken = default)
     {
         if (user.Id == followed.Id)
@@ -27,7 +35,7 @@ public sealed class FollowerService(IFollowerRepository repository)
             return FollowerErrros.AlreadyFollowing;
         }
 
-        var follower = Follower.Create(user.Id, followed.Id, createdOnUtc);
+        var follower = Follower.Create(user.Id, followed.Id, _dateTimeProvider.UtcNow);
         _followerRepository.Insert(follower);
 
         return Result.Success();
