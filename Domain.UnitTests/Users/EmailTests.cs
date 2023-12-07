@@ -11,7 +11,7 @@ public class EmailTests
     public void Constructor_Should_ReturnError_WhenValueIsNullOrEmpty(string? value)
     {
         var result = Email.Create(value);
-        result.Error.Should().Be(EmailErrros.Empty);
+        result.Error.Should().Be(EmailErrors.Empty);
     }
 
     [Theory]
@@ -19,7 +19,7 @@ public class EmailTests
     public void Constructor_Should_ReturnError_WhenValueIsInvalidFormat(string? value)
     {
         var result = Email.Create(value);
-        result.Error.Should().Be(EmailErrros.InvalidFormat);
+        result.Error.Should().Be(EmailErrors.InvalidFormat);
     }
 
     [Theory]

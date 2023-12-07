@@ -11,13 +11,8 @@ public sealed record Name
     {
         if (string.IsNullOrEmpty(name))
         {
-            return Result.Failure<Name>(NameErrros.NullOrEmpty);
+            return Result.Failure<Name>(NameErrors.NullOrEmpty);
         }
         return new Name(name);
     }
 };
-
-public static class NameErrros
-{
-    public static readonly Error NullOrEmpty = new("Name.NullOrEmpty", "Name is null or empty");
-}

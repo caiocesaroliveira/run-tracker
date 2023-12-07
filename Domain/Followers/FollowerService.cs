@@ -18,21 +18,21 @@ public sealed class FollowerService
     public async Task<Result> StartFollowingAsync(
         User user,
         User followed,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken)
     {
         if (user.Id == followed.Id)
         {
-            return FollowerErrros.SameUser;
+            return FollowerErrors.SameUser;
         }
 
         if (!followed.HasPublicProfile)
         {
-            return FollowerErrros.NonPublicProfile;
+            return FollowerErrors.NonPublicProfile;
         }
 
         if (await _followerRepository.IsAlreadyFollowingAsync(user.Id, followed.Id, cancellationToken))
         {
-            return FollowerErrros.AlreadyFollowing;
+            return FollowerErrors.AlreadyFollowing;
         }
 
         var follower = Follower.Create(user.Id, followed.Id, _dateTimeProvider.UtcNow);

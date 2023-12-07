@@ -2,6 +2,6 @@
 
 public interface IFollowerRepository
 {
-    Task<bool> IsAlreadyFollowingAsync(Guid userId, Guid follwedId, CancellationToken cancellationToken = default);
+    Task<bool> IsAlreadyFollowingAsync(Guid userId, Guid follwedId, CancellationToken cancellationToken);
     void Insert(Follower follower);
 }

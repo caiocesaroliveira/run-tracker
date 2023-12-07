@@ -31,10 +31,10 @@ public class FollowerServiceTests
         var user = User.Create(Name, Email, hasPublicProfile: false);
 
         //Act
-        var result = await _followerService.StartFollowingAsync(user, user);
+        var result = await _followerService.StartFollowingAsync(user, user, default);
 
         //Assert
-        result.Error.Should().Be(FollowerErrros.SameUser);
+        result.Error.Should().Be(FollowerErrors.SameUser);
     }
 
     [Fact]
@@ -45,10 +45,10 @@ public class FollowerServiceTests
         var followed = User.Create(Name, Email, hasPublicProfile: false);
 
         //Act
-        var result = await _followerService.StartFollowingAsync(user, followed);
+        var result = await _followerService.StartFollowingAsync(user, followed, default);
 
         //Assert
-        result.Error.Should().Be(FollowerErrros.NonPublicProfile);
+        result.Error.Should().Be(FollowerErrors.NonPublicProfile);
     }
 
     [Fact]
@@ -59,14 +59,14 @@ public class FollowerServiceTests
         var followed = User.Create(Name, Email, hasPublicProfile: true);
 
         _followerRepositoryMock
-            .IsAlreadyFollowingAsync(user.Id, followed.Id)
+            .IsAlreadyFollowingAsync(user.Id, followed.Id, default)
             .Returns(true);
 
         //Act
-        var result = await _followerService.StartFollowingAsync(user, followed);
+        var result = await _followerService.StartFollowingAsync(user, followed, default);
 
         //Assert
-        result.Error.Should().Be(FollowerErrros.AlreadyFollowing);
+        result.Error.Should().Be(FollowerErrors.AlreadyFollowing);
     }
 
     [Fact]
@@ -77,11 +77,11 @@ public class FollowerServiceTests
         var followed = User.Create(Name, Email, hasPublicProfile: true);
 
         _followerRepositoryMock
-            .IsAlreadyFollowingAsync(user.Id, followed.Id)
+            .IsAlreadyFollowingAsync(user.Id, followed.Id, default)
             .Returns(false);
 
         //Act
-        var result = await _followerService.StartFollowingAsync(user, followed);
+        var result = await _followerService.StartFollowingAsync(user, followed, default);
 
         //Assert
         result.IsSuccess.Should().BeTrue();
@@ -95,11 +95,11 @@ public class FollowerServiceTests
         var followed = User.Create(Name, Email, hasPublicProfile: true);
 
         _followerRepositoryMock
-            .IsAlreadyFollowingAsync(user.Id, followed.Id)
+            .IsAlreadyFollowingAsync(user.Id, followed.Id, default)
             .Returns(false);
 
         //Act
-        await _followerService.StartFollowingAsync(user, followed);
+        await _followerService.StartFollowingAsync(user, followed, default);
 
         //Assert
         _followerRepositoryMock.Received(1)

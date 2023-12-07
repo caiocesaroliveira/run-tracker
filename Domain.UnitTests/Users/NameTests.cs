@@ -11,7 +11,7 @@ public class NameTests
     public void Constructor_Should_ReturnError_WhenValueIsInvalid(string? value)
     {
         var result = Name.Create(value);
-        result.Error.Should().Be(NameErrros.NullOrEmpty);
+        result.Error.Should().Be(NameErrors.NullOrEmpty);
     }
 
     [Theory]
