@@ -1,8 +1,8 @@
-﻿
-using Application.Abstractions.Data;
-using Application.Abstractions.Messaging;
+﻿using Application.Abstractions.Messaging;
+using Domain.Abstractions.Data;
 using Domain.Followers;
 using Domain.Users;
+using MediatR;
 using SharedKernel;
 
 namespace Application.Followers.StartFollowing;

@@ -1,5 +1,5 @@
-using Application.Abstractions.Data;
 using Application.Users.Create;
+using Domain.Abstractions.Data;
 using Domain.Users;
 using FluentAssertions;
 using NSubstitute;
@@ -92,6 +92,6 @@ public class CreateUserCommandTests
         Result<Guid> result = await _handler.Handle(Command, default);
 
         //Assert
-        _userRepositoryMock.Received(1).Insert(Arg.Is<User>(u => u.Id == result.Value));
+        _userRepositoryMock.Received(1).AddAsync(Arg.Is<User>(u => u.Id == result.Value));
     }
 }

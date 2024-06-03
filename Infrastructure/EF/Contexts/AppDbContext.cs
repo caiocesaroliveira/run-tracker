@@ -1,14 +1,17 @@
-﻿using Domain.Users;
+﻿using Domain.Abstractions.Data;
+using Domain.Followers;
+using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Contexts;
 
-public class AppContext : DbContext, IUserQuery
+public class AppDbContext : DbContext, IUserQuery, IUnitOfWork
 {
-    public AppContext(DbContextOptions<AppContext> options)
+    public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options) { }
 
     public DbSet<User> Users { get; protected set; }
+    public DbSet<Follower> Followers { get; protected set; }
 
     public IQueryable<User> QueryUsers =>
            Users
@@ -19,5 +22,9 @@ public class AppContext : DbContext, IUserQuery
     {
         base.OnModelCreating(modelBuilder);
         //modelBuilder.ApplyConfigurationsFromAssembly<AppContext, UsersConfig>();
+    }
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        return base.SaveChangesAsync(cancellationToken);
     }
 }

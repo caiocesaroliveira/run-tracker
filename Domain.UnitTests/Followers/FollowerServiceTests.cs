@@ -103,6 +103,6 @@ public class FollowerServiceTests
 
         //Assert
         _followerRepositoryMock.Received(1)
-            .Insert(Arg.Is<Follower>(f => f.UserId == user.Id && f.FollowerId == followed.Id));
+            .AddAsync(Arg.Is<Follower>(f => f.UserId == user.Id && f.FollowerId == followed.Id));
     }
 }

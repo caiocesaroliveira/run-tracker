@@ -36,7 +36,7 @@ public sealed class FollowerService : IFollowerService
         }
 
         var follower = Follower.Create(user.Id, followed.Id, _dateTimeProvider.UtcNow);
-        _followerRepository.Insert(follower);
+        await _followerRepository.AddAsync(follower);
 
         return Result.Success();
     }

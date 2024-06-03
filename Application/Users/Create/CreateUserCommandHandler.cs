@@ -1,5 +1,5 @@
-﻿using Application.Abstractions.Data;
-using Application.Abstractions.Messaging;
+﻿using Application.Abstractions.Messaging;
+using Domain.Abstractions.Data;
 using Domain.Users;
 using SharedKernel;
 
@@ -39,8 +39,8 @@ internal sealed class CreateUserCommandHandler : ICommandHandler<CreateUserComma
 
         var user = User.Create(nameResult.Value, email, command.HasPublicProfile);
 
-        _userRepository.Insert(user);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _userRepository.AddAsync(user);
+        await _unitOfWork.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         return user.Id;
     }
